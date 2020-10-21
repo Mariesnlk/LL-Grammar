@@ -1,5 +1,8 @@
 public class Symbols {
 
+    final static String DIGIT_NUMBER = "^[-]*[0-9]+$";
+    final static String DOUBLE_NUMBER = "^[-]*[0-9]+\\.[0-9]+$";
+
     public static void main(String args[]) {
         System.out.println(isDigit("1234567890"));
         System.out.println(isDigit("34567cvbn5u"));
@@ -15,7 +18,7 @@ public class Symbols {
      */
     public static boolean isDigit(String digit) {
 
-        return digit.matches("^[-]*[0-9]+$");
+        return digit.matches(DIGIT_NUMBER);
     }
 
     /**
@@ -25,7 +28,7 @@ public class Symbols {
      */
     public static boolean isDoubleNumber(String doubleNumber) {
 
-        return doubleNumber.matches("^[-]*[0-9]+\\.[0-9]+$");
+        return doubleNumber.matches(DOUBLE_NUMBER);
     }
 
 }
