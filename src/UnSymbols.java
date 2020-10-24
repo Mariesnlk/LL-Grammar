@@ -1,7 +1,8 @@
 
 public class UnSymbols {
 
-    final static String NOT_SYMBOLS = "[\\^!@#$%&*()_+=|<>?{}\\[\\]~\\-\\.\\/]*";
+    final static String NOT_SYMBOLS = "[\\^@#$%&*()_+=|<>{}\\[\\]~\\-\\/]*";
+    final static String SEPARATORS = "[.,!?]";
     final static String NOT_ALPHABET = "^[^СИНЕЛЬНИКсинельник]*$";
 
     public static void main(String args[]) {

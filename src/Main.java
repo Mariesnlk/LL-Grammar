@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String args[]) {
@@ -32,49 +33,52 @@ public class Main {
         }
 
         String content = stringBuilder.toString();
-        /*match one or more spaces and replace them with a single space
-        and then trim whitespaces at the beginning and end
-        */
+
         System.out.println(content);
         System.out.println("------------------------------------------------------");
         System.out.println("Separated words");
-        String[] words = content.split("\\s");
+        System.out.println("------------------------------------------------------");
+        String[] words = content.split(" ");
         for (String w : words) {
             System.out.println(w);
         }
 
-        int count_email = 0;
-        int count_alphabet = 0;
-        int count_telephone = 0;
-        int count_not_symbol = 0;
-        int count_not_alphabet = 0;
-        int count_digit = 0;
-        int count_double = 0;
+        ArrayList<String> word = new ArrayList<String>();
+        ArrayList<String> email = new ArrayList<String>();
+        ArrayList<String> number = new ArrayList<String>();
+        ArrayList<String> telephone = new ArrayList<String>();
+        ArrayList<String> notSymbol = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<String>();
 
-        for (String word : words) {
-            if (Email.email(word))
-                count_email++;
-            else if (Alphabet.isAlphabet(word))
-                count_alphabet++;
-            else if (Telephone.isPhoneNum(word))
-                count_telephone++;
-            else if (UnSymbols.notSymbols(word))
-                count_not_symbol++;
-            else if (UnSymbols.notAlphabet(word))
-                count_not_alphabet++;
-            else if (Symbols.isDigit(word))
-                count_digit++;
-            else if (Symbols.isDoubleNumber(word))
-                count_double++;
+        for (String w : words) {
+            if (w.matches(Email.EMAIL))
+                email.add(w);
+            else if (w.matches(Telephone.TELEPHONE_NUMBER))
+                telephone.add(w);
+            else if (w.matches(Telephone.DATA))
+                data.add(w);
+            else if (w.matches(UnSymbols.NOT_ALPHABET) || w.matches(UnSymbols.NOT_SYMBOLS))
+                notSymbol.add(w);
+            else if (w.matches(Symbols.DIGIT_NUMBER) || w.matches(Symbols.DOUBLE_NUMBER)
+                     || w.matches(Symbols.HEXADECIMAL))
+                number.add(w);
+            else if (w.matches(Alphabet.SURNAME_ALPHABET))
+                word.add(w);
         }
+//        for (char ch : UnSymbols.SEPARATORS.toCharArray()) {
+//            if (content.contains(String.valueOf(ch))) {
+//                notSymbol.add(String.valueOf(ch));
+//                content.replace(String.valueOf(ch), " ");
+//            }
+//        }
+        System.out.println(telephone);
+        System.out.println(email);
+        System.out.println(data);
+        System.out.println(notSymbol);
+        System.out.println(number);
+        System.out.println(word);
 
-        System.out.println("Email " + count_email);
-        System.out.println("Alphabet " + count_alphabet);
-        System.out.println("Phone " + count_telephone);
-        System.out.println("Not symbols " + count_not_symbol);
-        System.out.println("Not alphabet " + count_not_alphabet);
-        System.out.println("Digit number " + count_digit);
-        System.out.println("Double number " +count_double);
+
     }
 }
 
