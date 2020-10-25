@@ -1,40 +1,36 @@
 import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
 
-    public static String SURNAME_ALPHABET = "^[СсИиНнЕеЛлЬьНнИиКк]*$";
+    public static String SURNAME_ALPHABET = "^[СсИиНнЕеЛлЬьНнИиКк]+$";
     final static String EMAIL = "^[A-Za-z0-9+_.-]+@(.+)$";
-    final static String NUMBER = "(\\-*)[0-9]+\\.?[0-9]+$";
-    final static String HEXADECIMAL = "^[-]*[0-9A-F]+$";
+    final static String NUMBER = "(\\-?)[0-9]+\\.?[0-9]+$";
+    final static String HEXADECIMAL = "^[0-9A-F]+$";
     final static String TELEPHONE_NUMBER = "^\\+[380]*\\(\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$";
-    final static String DATA = "^\\d{4}-\\d{2}-\\d{2}$";
-    final static String NOT_SYMBOLS = "[\\^#$%&*()+=|<>{}\\[\\]~\\/]*";
-    final static String NOT_ALPHABET = "^[^СсИиНнЕеЛлЬьНнИиКк]*$";
+    final static String DATA = "^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$";
+    final static String NOT_SYMBOLS = "[\\^#$%&*()+=|<>{}\\[\\]~\\/]+";
+    final static String NOT_ALPHABET = "^[а-яА-Яa-zA-Z]+\\.?$";
 
 
     public static void main(String args[]) {
-        ArrayList<String> word = new ArrayList<>();
-        ArrayList<String> email = new ArrayList<>();
-        ArrayList<String> number = new ArrayList<>();
-        ArrayList<String> telephone = new ArrayList<>();
-        ArrayList<String> delimiter = new ArrayList<>();
-        ArrayList<String> data = new ArrayList<>();
-        ArrayList<String> notSymbol = new ArrayList<>();
-
-        System.out.println(isPhoneNum("+380(66)-440-48-06"));
+        LinkedList<String> word = new LinkedList<>();
+        LinkedList<String> email = new LinkedList<>();
+        LinkedList<String> number = new LinkedList<>();
+        LinkedList<String> telephone = new LinkedList<>();
+        LinkedList<String> delimiter = new LinkedList<>();
+        LinkedList<String> data = new LinkedList<>();
+        LinkedList<String> notSymbol = new LinkedList<>();
 
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader("C:\\LL\\file.txt"));
+            reader = new BufferedReader(new FileReader("src//file1.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("Name of your file is not correct");
         }
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
-        String ls = System.getProperty("line.separator");
+        //String ls = System.getProperty("line.separator");
         while (true) {
             try {
                 if ((line = reader.readLine()) == null) break;
@@ -42,7 +38,7 @@ public class Main {
                 e.printStackTrace();
             }
             stringBuilder.append(line);
-            stringBuilder.append(ls);
+            //stringBuilder.append(ls);
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         try {
@@ -65,9 +61,7 @@ public class Main {
                 delimiter.add("?");
             else if (w.contains("_"))
                 delimiter.add("_");
-            else if (w.contains("-"))
-                delimiter.add(",");
-            else if (w.matches("[//s]"))
+            else if (w.contains(" "))
                 delimiter.add(" ");
             else if (w.matches(EMAIL))
                 email.add(w);
