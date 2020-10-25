@@ -1,11 +1,30 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
+
+    public static String SURNAME_ALPHABET = "^[СсИиНнЕеЛлЬьНнИиКк]*$";
+    final static String EMAIL = "^[A-Za-z0-9+_.-]+@(.+)$";
+    final static String NUMBER = "(\\-*)[0-9]+\\.?[0-9]+$";
+    final static String HEXADECIMAL = "^[-]*[0-9A-F]+$";
+    final static String TELEPHONE_NUMBER = "^\\+[380]*\\(\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$";
+    final static String DATA = "^\\d{4}-\\d{2}-\\d{2}$";
+    final static String NOT_SYMBOLS = "[\\^#$%&*()+=|<>{}\\[\\]~\\/]*";
+    final static String NOT_ALPHABET = "^[^СсИиНнЕеЛлЬьНнИиКк]*$";
+
+
     public static void main(String args[]) {
+        ArrayList<String> word = new ArrayList<>();
+        ArrayList<String> email = new ArrayList<>();
+        ArrayList<String> number = new ArrayList<>();
+        ArrayList<String> telephone = new ArrayList<>();
+        ArrayList<String> delimiter = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
+        ArrayList<String> notSymbol = new ArrayList<>();
+
+        System.out.println(isPhoneNum("+380(66)-440-48-06"));
 
         BufferedReader reader = null;
         try {
@@ -18,7 +37,7 @@ public class Main {
         String ls = System.getProperty("line.separator");
         while (true) {
             try {
-                if (!((line = reader.readLine()) != null)) break;
+                if ((line = reader.readLine()) == null) break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -34,51 +53,75 @@ public class Main {
 
         String content = stringBuilder.toString();
 
-        System.out.println(content);
-        System.out.println("------------------------------------------------------");
-        System.out.println("Separated words");
-        System.out.println("------------------------------------------------------");
+//        Pattern p = Pattern.compile("[!._,'?//s]");
+//        Matcher m = p.matcher(content);
+
         String[] words = content.split(" ");
         for (String w : words) {
             System.out.println(w);
-        }
-
-        ArrayList<String> word = new ArrayList<String>();
-        ArrayList<String> email = new ArrayList<String>();
-        ArrayList<String> number = new ArrayList<String>();
-        ArrayList<String> telephone = new ArrayList<String>();
-        ArrayList<String> notSymbol = new ArrayList<String>();
-        ArrayList<String> data = new ArrayList<String>();
-
-        for (String w : words) {
-            if (w.matches(Email.EMAIL))
+            if (w.contains("!"))
+                delimiter.add("!");
+            else if (w.contains("?"))
+                delimiter.add("?");
+            else if (w.contains("_"))
+                delimiter.add("_");
+            else if (w.contains("-"))
+                delimiter.add(",");
+            else if (w.matches("[//s]"))
+                delimiter.add(" ");
+            else if (w.matches(EMAIL))
                 email.add(w);
-            else if (w.matches(Telephone.TELEPHONE_NUMBER))
+            else if (w.matches(TELEPHONE_NUMBER))
                 telephone.add(w);
-            else if (w.matches(Telephone.DATA))
+            else if (w.matches(DATA))
                 data.add(w);
-            else if (w.matches(UnSymbols.NOT_ALPHABET) || w.matches(UnSymbols.NOT_SYMBOLS))
-                notSymbol.add(w);
-            else if (w.matches(Symbols.DIGIT_NUMBER) || w.matches(Symbols.DOUBLE_NUMBER)
-                     || w.matches(Symbols.HEXADECIMAL))
+            else if (w.matches(NUMBER) || w.matches(HEXADECIMAL))
                 number.add(w);
-            else if (w.matches(Alphabet.SURNAME_ALPHABET))
+            else if (w.matches(SURNAME_ALPHABET))
                 word.add(w);
+            else if(w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS))
+                notSymbol.add(w);
         }
-//        for (char ch : UnSymbols.SEPARATORS.toCharArray()) {
-//            if (content.contains(String.valueOf(ch))) {
-//                notSymbol.add(String.valueOf(ch));
-//                content.replace(String.valueOf(ch), " ");
-//            }
+
+        System.out.println("Роздільники " + delimiter);
+        System.out.println("Слова " + word);
+        System.out.println("Числа " + number);
+        System.out.println("Телефон " + telephone);
+        System.out.println("Дата " + data);
+        System.out.println("E-mail " + email);
+        System.out.println("Не символи і не слова " + notSymbol);
+
+
+        //print text
+//        Iterator i = list.iterator();
+//        while (i.hasNext()) {
+//            System.out.println(i.next());
 //        }
-        System.out.println(telephone);
-        System.out.println(email);
-        System.out.println(data);
-        System.out.println(notSymbol);
-        System.out.println(number);
-        System.out.println(word);
+    }
 
+    public static boolean isAlphabet(String word) {
 
+        return word.matches(SURNAME_ALPHABET);
+    }
+
+    public static boolean email(String email) {
+
+        return email.matches(EMAIL);
+    }
+
+    public static boolean isHexadecimal(String hexadecimal) {
+
+        return hexadecimal.matches(HEXADECIMAL);
+    }
+
+    public static boolean isPhoneNum(String tel) {
+
+        return tel.matches(TELEPHONE_NUMBER);
+    }
+
+    public static boolean isData(String data) {
+
+        return data.matches(DATA);
     }
 }
 
