@@ -41,10 +41,6 @@ public class Main {
         }
 
         String[] words = stringBuilder.toString().split("\\s");
-//        System.out.println("----INPUT TEXT----");
-//        for (String w : words) {
-//            System.out.println(w);
-//        }
 
         System.out.println("----OUTPUT TEXT----");
         for (String w : words) {
