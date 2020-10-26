@@ -14,12 +14,7 @@ public class Main {
 
 
     public static void main(String args[]) {
-        LinkedList<String> word = new LinkedList<>();
-        LinkedList<String> email = new LinkedList<>();
-        LinkedList<String> number = new LinkedList<>();
-        LinkedList<String> telephone = new LinkedList<>();
-        LinkedList<String> delimiter = new LinkedList<>();
-        LinkedList<String> data = new LinkedList<>();
+
         LinkedList<String> notSymbol = new LinkedList<>();
 
         BufferedReader reader = null;
@@ -30,7 +25,6 @@ public class Main {
         }
         StringBuilder stringBuilder = new StringBuilder();
         String line = null;
-        //String ls = System.getProperty("line.separator");
         while (true) {
             try {
                 if ((line = reader.readLine()) == null) break;
@@ -38,84 +32,41 @@ public class Main {
                 e.printStackTrace();
             }
             stringBuilder.append(line);
-            //stringBuilder.append(ls);
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+
         try {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        String content = stringBuilder.toString();
-
-//        Pattern p = Pattern.compile("[!._,'?//s]");
-//        Matcher m = p.matcher(content);
-
-        String[] words = content.split(" ");
-        for (String w : words) {
-            System.out.println(w);
-            if (w.contains("!"))
-                delimiter.add("!");
-            else if (w.contains("?"))
-                delimiter.add("?");
-            else if (w.contains("_"))
-                delimiter.add("_");
-            else if (w.contains(" "))
-                delimiter.add(" ");
-            else if (w.matches(EMAIL))
-                email.add(w);
-            else if (w.matches(TELEPHONE_NUMBER))
-                telephone.add(w);
-            else if (w.matches(DATA))
-                data.add(w);
-            else if (w.matches(NUMBER) || w.matches(HEXADECIMAL))
-                number.add(w);
-            else if (w.matches(SURNAME_ALPHABET))
-                word.add(w);
-            else if(w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS))
-                notSymbol.add(w);
-        }
-
-        System.out.println("Роздільники " + delimiter);
-        System.out.println("Слова " + word);
-        System.out.println("Числа " + number);
-        System.out.println("Телефон " + telephone);
-        System.out.println("Дата " + data);
-        System.out.println("E-mail " + email);
-        System.out.println("Не символи і не слова " + notSymbol);
-
-
-        //print text
-//        Iterator i = list.iterator();
-//        while (i.hasNext()) {
-//            System.out.println(i.next());
+        String[] words = stringBuilder.toString().split("\\s");
+//        System.out.println("----INPUT TEXT----");
+//        for (String w : words) {
+//            System.out.println(w);
 //        }
-    }
 
-    public static boolean isAlphabet(String word) {
-
-        return word.matches(SURNAME_ALPHABET);
-    }
-
-    public static boolean email(String email) {
-
-        return email.matches(EMAIL);
-    }
-
-    public static boolean isHexadecimal(String hexadecimal) {
-
-        return hexadecimal.matches(HEXADECIMAL);
-    }
-
-    public static boolean isPhoneNum(String tel) {
-
-        return tel.matches(TELEPHONE_NUMBER);
-    }
-
-    public static boolean isData(String data) {
-
-        return data.matches(DATA);
+        System.out.println("----OUTPUT TEXT----");
+        for (String w : words) {
+            if (w.matches("!")  ||w.contains("?")) {
+                System.out.println(w + " - роздільник");
+            } else if (w.matches("_")) {
+                System.out.println(w + " - роздільник");
+            } else if (w.matches(EMAIL)) {
+                System.out.println(w + " - e-mail");
+            } else if (w.matches(TELEPHONE_NUMBER)) {
+                System.out.println(w + " - номер телефону");
+            } else if (w.matches(DATA)) {
+                System.out.println(w + " - дата");
+            } else if (w.matches(NUMBER) || w.matches(HEXADECIMAL)) {
+                System.out.println(w + " - число");
+            } else if (w.matches(SURNAME_ALPHABET)) {
+                System.out.println(w + " - слово");
+            } else if (w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS)) {
+                notSymbol.add(w);
+                System.out.println(w + " - не символ і не число");
+            }
+        }
     }
 }
 
