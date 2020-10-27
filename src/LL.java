@@ -1,7 +1,9 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
 
-public class Main {
+public class LL {
 
     public static String SURNAME_ALPHABET = "^[СсИиНнЕеЛлЬьНнИиКк]+$";
     final static String EMAIL = "^[A-Za-zА-Яа-я0-9+_.-]+@(.+)$";
@@ -12,42 +14,33 @@ public class Main {
     final static String NOT_SYMBOLS = "[\\^#$%&*()+=|<>{}\\[\\]~\\/]+";
     final static String NOT_ALPHABET = "^[а-яА-Яa-zA-Z]+\\.?$";
 
+    public static void main(String args[]) throws IOException {
 
-    public static void main(String args[]) {
+        String text = readFileAsString("src//file1.txt");
+        System.out.println("---- INPUT FROM FILE ----");
+        System.out.println(text);
 
-        LinkedList<String> notSymbol = new LinkedList<>();
+        String[] strArray = text.split("\\s");
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("src//file1.txt"));
-        } catch (FileNotFoundException e) {
-            System.out.println("Name of your file is not correct");
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        String line = null;
-        while (true) {
-            try {
-                if ((line = reader.readLine()) == null) break;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            stringBuilder.append(line);
+        LinkedList<String> list = new LinkedList<String>();
+        for (String w : strArray) {
+            list.add(w);
         }
 
-        try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = 1; i < list.size(); i += 2) {
+            list.add(i, " ");
         }
 
-        String[] words = stringBuilder.toString().split("\\s");
+        System.out.println("---- OUTPUT ----");
 
-        System.out.println("----OUTPUT TEXT----");
-        for (String w : words) {
-            if (w.matches("!")  ||w.contains("?")) {
+        for (int i = 0; i < list.size(); i++) {
+            String w = list.get(i);
+            if (w.matches("!") || w.contains("?")) {
                 System.out.println(w + " - роздільник");
             } else if (w.matches("_")) {
                 System.out.println(w + " - роздільник");
+            } else if (w.matches(" ")) {
+                System.out.println(w + " - роздільник \" \" ");
             } else if (w.matches(EMAIL)) {
                 System.out.println(w + " - e-mail");
             } else if (w.matches(TELEPHONE_NUMBER)) {
@@ -59,11 +52,22 @@ public class Main {
             } else if (w.matches(SURNAME_ALPHABET)) {
                 System.out.println(w + " - слово");
             } else if (w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS)) {
-                notSymbol.add(w);
                 System.out.println(w + " - не символ і не число");
             }
         }
     }
+
+    private static String readFileAsString(String filePath) throws IOException {
+        StringBuffer fileData = new StringBuffer();
+        BufferedReader reader = new BufferedReader(
+                new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead = 0;
+        while ((numRead = reader.read(buf)) != -1) {
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        reader.close();
+        return fileData.toString();
+    }
 }
-
-
