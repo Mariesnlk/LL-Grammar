@@ -27,7 +27,7 @@ public class MainRPN {
         System.out.println("Res: " + calculator.listToString(res3));
         System.out.println();
 
-        String str4 = "50/(2*5)+sin(45+45)";
+        String str4 = "sin(15+30)+sin(15+30)";
         List<String> expr4 = RPNCalculator.splitLine(str4);
         List<String> res4 = calculator.convertToRPN(expr4);
         System.out.println("Input: " + str4);
@@ -35,12 +35,12 @@ public class MainRPN {
         System.out.println("Result: " + calculator.RPNCalculate(res4));
         System.out.println();
 
-        String str5 = "12+2*((3*4)+(10/5))";
+        String str5 = "100/tan(45)+13*10";
         List<String> expr5 = RPNCalculator.splitLine(str5);
         List<String> res5 = calculator.convertToRPN(expr5);
         System.out.println("Input: " + str5);
         System.out.println("Res: " + calculator.listToString(res5));
-        System.out.println("Result: " + calculator.RPNCalculate(res5));
+        System.out.println("Result: " + (int)calculator.RPNCalculate(res5));
         System.out.println();
 
 //        String str6 = "A=2+f(j,j+1,j+3)^8";
