@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class MainLL {
 
     public static String SURNAME_ALPHABET = "^[СсИиНнЕеЛлЬьНнИиКк]+$";
     final static String EMAIL = "^[A-Za-zА-Яа-я0-9+_.-]+@(.+)$";
@@ -27,6 +27,7 @@ public class Main {
         String line = null;
         while (true) {
             try {
+                assert reader != null;
                 if ((line = reader.readLine()) == null) break;
             } catch (IOException e) {
                 e.printStackTrace();

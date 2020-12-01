@@ -42,8 +42,7 @@ public class LL {
         //проходимось по кожному елементу зв'язного списка і порівнюємо
         //на відповідність приналежності до певного класу лексем
         //виводимо відповідне повідомлення
-        for (int i = 0; i < list.size(); i++) {
-            String w = list.get(i);
+        for (String w : list) {
             if (w.matches("[-\\.!?_,]+")) {
                 System.out.println(w + " - роздільник");
             } else if (w.matches("\\s")) {
@@ -71,7 +70,7 @@ public class LL {
      * @return повертає прочитаний текст з файлу як стрічку
      */
     private static String readFileAsString(String filePath) {
-        StringBuffer fileData = new StringBuffer();
+        StringBuilder fileData = new StringBuilder();
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -83,6 +82,7 @@ public class LL {
         int numRead = 0;
         while (true) {
             try {
+                assert reader != null;
                 if ((numRead = reader.read(buf)) == -1) break;
             } catch (IOException e) {
                 e.printStackTrace();
