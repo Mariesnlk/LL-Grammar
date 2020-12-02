@@ -17,7 +17,7 @@ public class MainMatrix {
         int[][] result = new int[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                result[i][j] = (int) Math.round((Math.random() * 30) - 15);
+                result[i][j] = (int) Math.round((Math.random() * 30) - 15); // [-15, 15]
             }
         }
         return result;

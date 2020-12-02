@@ -14,10 +14,11 @@ public class LL {
     final static String DATA = "^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$";
     final static String NOT_SYMBOLS = "[\\^#$%&*()+=|<>{}\\[\\]~\\/]+";
     final static String NOT_ALPHABET = "^[а-яА-Яa-zA-Z]+\\.?$";
+    final static String FUNCTION = "[а-яА-Яa-zA-Z]+?(\\(?)[а-яА-Яa-zA-Z]+\\.?\\)?$";
 
     public static void main(String args[]) throws IOException {
 
-        String text = readFileAsString("src//file1.txt");//отримуємо текст з файлу
+        String text = readFileAsString("C:\\SYNE\\text.txt");//отримуємо текст з файлу
         System.out.println("---- INPUT FROM FILE ----");
         System.out.println(text);//виводимо прочитаний текст у консоль
 
@@ -42,7 +43,8 @@ public class LL {
         //проходимось по кожному елементу зв'язного списка і порівнюємо
         //на відповідність приналежності до певного класу лексем
         //виводимо відповідне повідомлення
-        for (String w : list) {
+        for (int i = 0; i < list.size(); i++) {
+            String w = list.get(i);
             if (w.matches("[-\\.!?_,]+")) {
                 System.out.println(w + " - роздільник");
             } else if (w.matches("\\s")) {
@@ -59,6 +61,8 @@ public class LL {
                 System.out.println(w + " - слово");
             } else if (w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS)) {
                 System.out.println(w + " - не символ і не число");
+            } else if (w.matches(FUNCTION)) {
+                System.out.println(w + " - функція");
             }
         }
     }
@@ -70,7 +74,7 @@ public class LL {
      * @return повертає прочитаний текст з файлу як стрічку
      */
     private static String readFileAsString(String filePath) {
-        StringBuilder fileData = new StringBuilder();
+        StringBuffer fileData = new StringBuffer();
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -82,7 +86,6 @@ public class LL {
         int numRead = 0;
         while (true) {
             try {
-                assert reader != null;
                 if ((numRead = reader.read(buf)) == -1) break;
             } catch (IOException e) {
                 e.printStackTrace();
