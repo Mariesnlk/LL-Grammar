@@ -59,10 +59,8 @@ public class LL {
                 System.out.println(w + " - число");
             } else if (w.matches(SURNAME_ALPHABET)) {
                 System.out.println(w + " - слово");
-            } else if (w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS)) {
+            } else if (w.matches(NOT_ALPHABET) || w.matches(NOT_SYMBOLS) || w.matches(FUNCTION)) {
                 System.out.println(w + " - не символ і не число");
-            } else if (w.matches(FUNCTION)) {
-                System.out.println(w + " - функція");
             }
         }
     }

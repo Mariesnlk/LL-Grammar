@@ -87,6 +87,8 @@ public class RPNCalculator {
             if (")".equals(symbol)) {
                 while (!"(".equals(stack.peek()))
                     res.add(stack.pop());
+                res.add(Integer.toString(counter));
+                res.add("Fn");
                 stack.pop();
                 continue;
             }
@@ -107,6 +109,7 @@ public class RPNCalculator {
                     res.add(stack.pop());
                 }
                 res.add(Integer.toString(counter));
+                res.add("Fn");
                 res.add(symbol);
                 stack.pop();
                 continue;

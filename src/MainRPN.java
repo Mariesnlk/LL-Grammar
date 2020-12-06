@@ -20,10 +20,10 @@ public class MainRPN {
         System.out.println("Res: " + calculator.listToString(res2));
         System.out.println();
 
-        String str3 = "B=M[i,j+1,k]";
+        String str3 = "A=2+f(2x)";
         List<String> expr3 = RPNCalculator.splitLine(str3);
         List<String> res3 = calculator.convertToRPN(expr3);
-        System.out.println("Input: " + str2);
+        System.out.println("Input: " + str3);
         System.out.println("Res: " + calculator.listToString(res3));
         System.out.println();
 
@@ -40,15 +40,22 @@ public class MainRPN {
         List<String> res5 = calculator.convertToRPN(expr5);
         System.out.println("Input: " + str5);
         System.out.println("Res: " + calculator.listToString(res5));
-        System.out.println("Result: " + (int)calculator.RPNCalculate(res5));
+        System.out.println("Result: " + (int) calculator.RPNCalculate(res5));
         System.out.println();
 
-//        String str6 = "A=2+f(j,j+1,j+3)^8";
-//        List<String> expr6 = RPNCalculator.splitLine(str6);
-//        List<String> res6 = calculator.convertToRPN(expr6);
-//        System.out.println("Input: " + str6);
-//        System.out.println("Res: " + calculator.listToString(res6));
-//        System.out.println();
+        String str6 = "B=M[8,i+4,cos(a),k*4]^6";
+        List<String> expr6 = RPNCalculator.splitLine(str6);
+        List<String> res6 = calculator.convertToRPN(expr6);
+        System.out.println("Input: " + str6);
+        System.out.println("Res: " + calculator.listToString(res6));
+        System.out.println();
 
+        String str7 = " 1/2+(2+3)/(sin(9+2)^2+6/7)"; //1 2 / 2 3 + 9 2 + sin 2 ^ 6 7 / + / +
+        List<String> expr7 = RPNCalculator.splitLine(str7);
+        List<String> res7 = calculator.convertToRPN(expr7);
+        System.out.println("Input: " + str7);
+        System.out.println("Res: " + calculator.listToString(res7));
+        System.out.println("Result: " + (int) calculator.RPNCalculate(res7));
+        System.out.println();
     }
 }
