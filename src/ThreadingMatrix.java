@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ThreadingMatrix {
 
-    // creating 5 threads and waiting for them to complete then again repeat steps.
+    // creating 8 threads and waiting for them to complete then again repeat steps.
     public static void multiply(int[][] matrix1, int[][] matrix2, int[][] result) {
         List<Thread> threads = new ArrayList<>();
         int rows1 = matrix1.length;
@@ -12,7 +12,7 @@ public class ThreadingMatrix {
             Thread thread = new Thread(task);
             thread.start();
             threads.add(thread);
-            if (threads.size() % 5 == 0) {
+            if (threads.size() % 8 == 0) {
                 waitForThreads(threads);
             }
         }

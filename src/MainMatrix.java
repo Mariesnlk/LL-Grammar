@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class MainMatrix {
 
-    public static final int MATRIX_SIZE = 500;
+    public static final int MATRIX_SIZE = 2000;
 
     public static void main(String[] args) {
         Date start = new Date();
@@ -16,9 +16,9 @@ public class MainMatrix {
 //
 //        System.out.println("\nMatrix 2 : ");
 //        ClassicMatrix.displayMatrix(matrix2);
-
-        System.out.println("\nOutput Matrix : ");
-        ClassicMatrix.displayMatrix(resultClassic);
+//
+//        System.out.println("\nOutput Matrix : ");
+//        ClassicMatrix.displayMatrix(resultClassic);
 
         Date end = new Date();
         System.out.println("\nTime taken in milli seconds: " + (end.getTime() - start.getTime()));
@@ -33,6 +33,8 @@ public class MainMatrix {
 
         Date end1 = new Date();
         System.out.println("\nTime taken in milli seconds: " + (end1.getTime() - start1.getTime()));
+
+        System.out.println("\nDifference between two multiply: " + ((end.getTime() - start.getTime()) / (end1.getTime() - start1.getTime())));
 
     }
 
